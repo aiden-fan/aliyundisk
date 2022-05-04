@@ -50,7 +50,11 @@ public class FileCommand {
             taskDetail.setThread(Thread.currentThread());
             Date startDate = new Date();
             taskDetail.setMsg(startDate.toString() + " 开始下载任务;");
-            BaseCache.addTaskDetail(taskDetail);
+            boolean b = BaseCache.addTaskDetail(taskDetail);
+            if (!b) {
+                taskDetail.setMsg(taskDetail.getMsg() + "重复下载");
+                return;
+            }
             try {
                 GetDownLoadUrlResponse downloadUrl = fileManger.getDownloadUrl(fileId);
                 fileManger.downloadFile(downloadUrl.getUrl(), localPath, fileName,taskDetail, true);

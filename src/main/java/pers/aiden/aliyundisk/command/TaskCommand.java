@@ -10,6 +10,9 @@ import pers.aiden.aliyundisk.module.TaskDetail;
 import pers.aiden.aliyundisk.utils.BaseCache;
 import pers.aiden.aliyundisk.utils.ThreadPoolUtil;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @Author: 范淼
  * @Date: 2022-05-04
@@ -19,10 +22,13 @@ import pers.aiden.aliyundisk.utils.ThreadPoolUtil;
 public class TaskCommand {
 
     @ShellMethod(value = "查询下载结果", key = {"taskResult", "tr"}, group = "文件操作")
-    public ShellResult<TaskDetail> taskResult(
-            @ShellOption String fileId
+    public ShellResult<List<TaskDetail>> taskResult(
+            @ShellOption(defaultValue = ShellOption.NULL) String fileId
     ) {
-        return new ShellResult<>(BaseCache.getTaskDetail(fileId),"status 1 下载中  2 下载成功  0 下载失败",200);
+        if (StringUtils.isBlank(fileId)) {
+            return new ShellResult<>(BaseCache.allTaskDetail(),"",200);
+        }
+        return new ShellResult<>(Arrays.asList(BaseCache.getTaskDetail(fileId)),"status 1 下载中  2 下载成功  0 下载失败",200);
     }
 
 

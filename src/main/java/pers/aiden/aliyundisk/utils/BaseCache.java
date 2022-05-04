@@ -9,6 +9,7 @@ import pers.aiden.aliyundisk.module.response.FileInfo;
 import pers.aiden.aliyundisk.module.response.UserInfo;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,7 +30,7 @@ public class BaseCache {
 
     private static final Map<String, String> userCache = new ConcurrentHashMap<>(16);
 
-    public static final Map<String, TaskDetail> taskCache = new ConcurrentHashMap<>(32);
+    private static final Map<String, TaskDetail> taskCache = new ConcurrentHashMap<>(32);
 
     /**
      * 缓存目录结构 todo
@@ -60,6 +61,11 @@ public class BaseCache {
 
     public static String getUserCache(String fileId) {
         return userCache.get(fileId);
+    }
+
+    public static List<TaskDetail> allTaskDetail() {
+        ArrayList<TaskDetail> taskDetails = new ArrayList<>(taskCache.values());
+        return taskDetails;
     }
 
     public static synchronized boolean addTaskDetail( TaskDetail taskDetail) {
