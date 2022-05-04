@@ -8,7 +8,7 @@
 
 登录网页版阿里云盘从开发者工具中找到refresh_token 配置到此文件中src/main/resources/application-user.properties，如下图
 
-![image-20220504182001466](.images/README/image-20220504182001466.png)
+![image-20220504182001466](https://gitee.com/aiden_fm/aliyundisk/raw/master/.images/README/image-20220504182001466.png)
 
 
 
